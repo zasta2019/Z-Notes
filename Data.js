@@ -35,7 +35,7 @@ export default function Data(props) {
             <Text style={styles.heading}>My Notes</Text>
             <View style={styles.addbutton}>
               <TouchableOpacity activeOpacity={0.6}>
-                <Pressable>
+                <Pressable onPress={() => props.navigation.navigate("Addedit")}>
                   <View style={styles.add}>
                     <Image style={styles.addimg} source={require('./assets/add.png')} />
                   </View>
@@ -53,6 +53,7 @@ export default function Data(props) {
           </View>
           <View style={styles.space}>
             <View style={styles.flexbox}>
+              <Pressable onPress={() => props.navigation.navigate("Viewnotes")}>
               <View style={[styles.notesbox, styles.color1]}>
                 <View style={styles.flexoption}>
                   <View>
@@ -72,6 +73,8 @@ export default function Data(props) {
                   </View>
                 </View>
               </View>
+              </Pressable>
+              <Pressable onPress={() => props.navigation.navigate("Viewnotes")}>
               <View style={[styles.notesbox, styles.space, styles.color2]}>
                 <View style={styles.flexoption}>
                   <View>
@@ -88,6 +91,7 @@ export default function Data(props) {
                   </View>
                 </View>
               </View>
+              </Pressable>
             </View>
           </View>
           <View style={styles.space}>
