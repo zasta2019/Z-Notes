@@ -26,6 +26,7 @@ export default function Data(props) {
   else {
     SplashScreen.hideAsync();
   }
+  <Text></Text>
   return (
     <ImageBackground style={styles.backgroundImage} resizeMode="cover" source={require('./assets/design.jpg')}  >
       <View style={styles.contentbox}>
