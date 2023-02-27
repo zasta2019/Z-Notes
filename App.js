@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Viewnotes" screenOptions={{headerShown:false}}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown:false}}>
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Data" component={Data} />
