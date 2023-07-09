@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Pressable, TouchableOpacity, ScrollView, ImageBackground, screenHeight, screenWidth } from 'react-native';
+import { StyleSheet, Text, View, Image,  TextInput, Pressable, TouchableOpacity, ScrollView, ImageBackground, screenHeight, screenWidth } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect,useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,20 +52,35 @@ export default function Viewnotes({route}) {
     <ImageBackground style={styles.backgroundImage} resizeMode="cover" source={require('./assets/design.jpg')}  >
       <View style={styles.contentbox}>
         <View style={styles.flex}>
-          <View style={styles.backbutton} >
+        <View style={styles.headingflex}>
+        <View style={styles.backbutton} >
             <Ionicons name="chevron-back-sharp" size={32} style={styles.backbutton} onPress={() => navigation.navigate("Home")} />
           </View>
+          <View>
           <Text style={styles.heading}>My Notes</Text>
-          <View style={styles.addbutton}>
+         </View>
+        </View>
+         <View style={styles.optionflex}>
+         <View style={styles.addbutton}>
   
-            <TouchableOpacity activeOpacity={0.6}>
-              <Pressable>
-                <View style={styles.add}>
-                  <Image style={styles.editimg} source={require('./assets/edit.png')} />
-                </View>
-              </Pressable>
-            </TouchableOpacity>
-          </View>
+  <TouchableOpacity activeOpacity={0.6}>
+    <Pressable>
+      <View style={styles.add}>
+        <Image style={styles.editimg} source={require('./assets/edit.png')} />
+      </View>
+    </Pressable>
+  </TouchableOpacity>
+</View>
+<View style={styles.addbutton}>
+  <TouchableOpacity activeOpacity={0.6}>
+    <Pressable>
+      <View style={styles.delete}>
+      <MaterialIcons name="delete" size={23} color="white" style={styles.deleteicon}/>
+      </View>
+    </Pressable>
+  </TouchableOpacity>
+</View>
+         </View>
         </View>
         {notes && notes.map((note)=>{
                   <View style={styles.notesdata}>
@@ -99,6 +115,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 712,
     marginTop: 25,
+  },
+  headingflex:{
+    flexDirection:"row",
+  },
+  optionflex:{
+    flexDirection:"row",
   },
   flexbox:{
     flexDirection:"row",
@@ -178,6 +200,14 @@ const styles = StyleSheet.create({
     width: 35,
     borderRadius: 50,
   },
+  delete: {
+    backgroundColor: "#0088CB",
+    height: 35,
+    alignItems:"center",
+    alignSelf:"center",
+    width: 35,
+    borderRadius: 50,
+  },
   editimg: {
     width: 20,
     height: 20,
@@ -194,11 +224,13 @@ const styles = StyleSheet.create({
   flex: {
     flexDirection: "row",
     padding: 22,
+    justifyContent:"space-between",
   },
   addbutton: {
-    flex: 1,
-    alignItems: "flex-end",
-    marginRight: 2,
+    marginRight:8,
+  },
+  deleteicon:{
+    paddingTop:5,
   },
 });
 

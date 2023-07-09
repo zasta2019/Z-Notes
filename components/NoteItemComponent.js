@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Image, ListItem, Pressable, TouchableOpacity, ScrollView, ImageBackground, screenHeight, screenWidth } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, Modal, ListItem, Pressable, TouchableOpacity, ScrollView, ImageBackground, screenHeight, screenWidth } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -7,8 +7,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 
 function NoteItemComponent({title,desc,time,key}){
+
+  
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
 
   const formatDate = ms => {
     const date = new Date(ms);
@@ -26,7 +34,7 @@ function NoteItemComponent({title,desc,time,key}){
         <>
        
 
-        <View style={styles.space}>
+     <View style={styles.space}>
             <View style={styles.flexbox}>
                 <Pressable onPress={() =>navigation.navigate("Viewnotes",{
                   noteKey:{time}
@@ -34,35 +42,52 @@ function NoteItemComponent({title,desc,time,key}){
                     <View style={[styles.notesbox, styles.color1]}>
                         <View style={styles.flexoption}>
                             <View>
-                                <Text style={styles.notesheading}>{title}</Text>
-                                <Text style={styles.contenttext}>{desc}</Text>
+                                <Text style={styles.notesheading} multiline numberOfLines={1}>{title}</Text>
+                                <Text style={styles.contenttext} multiline numberOfLines={4} >{desc}</Text>
                             </View>
-                            <View>
-                                <SimpleLineIcons name="options-vertical" style={styles.option} />
+                            <View style={styles.optionbox}>
+                            <TouchableOpacity activeOpacity={0.6} onPress={toggleModal} style={styles.touchoption}>
+                              <SimpleLineIcons name="options-vertical" style={styles.option}/>
+                              </TouchableOpacity>
                             </View>
                         </View>
+                        <Modal visible={modalVisible} animationType="fade" transparent={true} onRequestClose={toggleModal}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity activeOpacity={0.6} style={styles.optionButton}>
+              <Text style={styles.optionText}>Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.6} style={styles.optionButton}>
+              <Text style={styles.optionText}>Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.6} onPress={toggleModal} style={styles.optionButton}>
+              <Text style={styles.optionText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
                         <View style={styles.status}>
-                            <View style={styles.filesbox}>
+                            {/* <View style={styles.filesbox}>
                                 <Entypo name="attachment" style={styles.attachment} />
-                            </View>
-                            <View style={styles.datebox}>
+                            </View> */}
+                           <View style={styles.datecontent}>
+                           <View style={styles.datebox}>
                                 <Text style={styles.date}>{formatDate(time)}</Text>
                             </View>
+                           </View>
                         </View>
                     </View>
                 </Pressable>
    
             </View>
         </View>
+
       
 </>
     )
 }
 
 const styles = StyleSheet.create({
-
-
-
     notesheading: {
       fontFamily: "Ubuntu-Bold",
       fontSize: 14,
@@ -115,10 +140,7 @@ const styles = StyleSheet.create({
       color: '#858E93',
     },
     option: {
-      position: 'absolute',
-      top: 7,
-      right: 0,
-      fontSize: 17,
+      fontSize: 18,
       color: '#000000',
     },
     attachment: {
@@ -131,8 +153,8 @@ const styles = StyleSheet.create({
     notesbox: {
       borderRadius: 11,
       width: 160,
-      padding: 10,
-      height: 190,
+      padding: 15,
+      overflow:"hidden",
     },
     color1: {
       backgroundColor: "#FFF2F0",
@@ -151,16 +173,20 @@ const styles = StyleSheet.create({
     },
     flexbox: {
       flexDirection: "row",
-      paddingTop: 50,
+      paddingTop:15,
+      paddingBottom:10,
     },
     flexoption: {
       flexDirection: "row",
+      justifyContent:"space-between",
     },
     contenttext: {
       fontFamily: "Ubuntu-Regular",
       fontSize: 12,
       lineHeight: 15,
       paddingRight: 20,
+      width:120,
+      height:60,
       marginTop: 7,
       color: "#596568",
       overflow: 'hidden',
@@ -182,14 +208,18 @@ const styles = StyleSheet.create({
     },
     status: {
       marginTop: 30,
-      flexDirection: "row",
     },
     datebox: {
-      width: 90,
+      width: 115,
       height: 25,
       backgroundColor: "white",
       borderRadius: 31,
-      marginLeft: 25,
+      marginTop:8,
+      alignSelf:"flex-end",
+    },
+    datecontent:{
+      flexDirection:"column",
+      justifyContent:"flex-end",
     },
     onlydatebox: {
       width: 90,
@@ -197,7 +227,39 @@ const styles = StyleSheet.create({
       backgroundColor: "white",
       borderRadius: 31,
       marginLeft: 50,
-    }
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+      backgroundColor: '#fff',
+      flexDirection:"row",
+      padding: 20,
+      borderRadius: 10,
+    },
+    optionButton: {
+      paddingVertical: 10,
+      padding:20,
+      borderWidth: 0.5,
+      borderColor:"#ccc",
+    },
+    optionText: {
+      fontSize: 16,
+      color: '#000',
+    },
+    optionText: {
+      fontFamily: "Ubuntu-Regular",
+      fontSize: 17,
+      color: '#0A7AFF',
+      textAlign: 'center',
+    },
+    touchoption:{
+      width:60,
+      height:30,
+    },
   });
 
 

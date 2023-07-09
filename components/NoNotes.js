@@ -7,9 +7,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function NoNotes(){
     return(
-        <><View style={styles.imgbox}>
+        <>
+        <View style={styles.imgbox}>
             <Image style={styles.emptyimg} source={require('../assets/empty.jpg')} />
-        </View><Text style={styles.emptytext}>Empty Notes!</Text><Text style={styles.click}>Click here to write something exciting</Text></>
+            </View>
+            <Text style={styles.emptytext}>Empty Notes!</Text>
+            <Text style={styles.click}>Click here to write something exciting</Text>
+        </>
 
     )
 }
@@ -17,12 +21,11 @@ function NoNotes(){
 
 const styles = StyleSheet.create({
     imgbox: {
-        width: 250,
-        height: 200,
-        flex: 1,
-        alignSelf: 'center',
-        marginTop: 100,
+        width: 210,
+        height: 180,
+        marginTop: 70,
         overflow: "hidden",
+        alignSelf:"center",
       },
       emptyimg: {
         width: "100%",

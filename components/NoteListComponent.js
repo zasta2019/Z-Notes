@@ -16,7 +16,7 @@ function NoteListComponent(){
     const [notes, setNotes] = useState([]);
 
  const findNote =async ()=>{
- // await AsyncStorage.clear()
+//  await AsyncStorage.clear()
 
     const getNotes = await AsyncStorage.getItem('ZNOTES');
     let listOfNotes = await JSON.parse(getNotes) || [];
@@ -42,6 +42,7 @@ function NoteListComponent(){
         <FlatList
         data={notes}
         numColumns={2}
+        style={{ height: 500 }} 
         renderItem={(note) => {
           return (
              <NoteItemComponent

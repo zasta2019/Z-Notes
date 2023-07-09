@@ -12,6 +12,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export default function Addedit(props) {
@@ -84,7 +85,7 @@ export default function Addedit(props) {
           </View>
         </View>
         <KeyboardAvoidingView enabled={true} behavoiur={"padding"}>
-          <View style={styles.datacontent}>
+          <ScrollView style={styles.datacontent}>
             <TextInput style={
               styles.textAreatitle}
              multiline={true}
@@ -101,7 +102,7 @@ export default function Addedit(props) {
                placeholder="Type Your Description here..." 
                onChangeText={text => handleOnChangeText(text, 'desc')}
                />
-            <View style={styles.uploadbox}>
+            {/* <View style={styles.uploadbox}>
               <View style={styles.flexicon}>
                 <FontAwesome name="image" size={18} color="white" style={styles.imgicon} />
                 <Ionicons name="list" size={22} color="white" />
@@ -110,8 +111,8 @@ export default function Addedit(props) {
                 <Image style={styles.send} source={require('../assets/send.png')} />
                 <MaterialIcons name="color-lens" size={22} color="white" />
               </View>
-            </View>
-          </View>
+            </View> */}
+          </ScrollView>
         </KeyboardAvoidingView>
       </View>
     </ImageBackground>
@@ -203,6 +204,7 @@ const styles = StyleSheet.create({
     fontFamily: "Ubuntu-Regular",
     fontSize: 14,
     lineHeight: 21,
+    height:240,
     color: "#33393D",
     marginTop: 10,
     marginLeft: 6,

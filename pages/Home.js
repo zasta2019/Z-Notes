@@ -36,7 +36,7 @@ function Home (){
         <View style={styles.contentbox}>
                 <AddButtonComponent />
                 <SearchComponent />
-                 <NoteListComponent/> 
+               <NoteListComponent/> 
         </View></>
 
     )
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 35,
         borderTopRightRadius: 35,
       },
-
 });
 
 export default Home
